@@ -34,7 +34,7 @@
                     &#x2B50; &#x2730; &#x2730; &#x2730; &#x2730;
                 {% endif %}
                 <p><a href='/users/{{ review.user.id }}'>{{ review.user.name }}</a> says: {{ review.desc }}</p>
-                <p>Posted on {{ review.created_at }}</p>
+                <p>Posted on {{ review.created_at.date }}</p>
                 {% if review.user.id == request.session.user_id %}
                     <p><a href='/reviews/{{ review.id }}/delete'>Delete this Review</a></p>
                 {% endif %}
