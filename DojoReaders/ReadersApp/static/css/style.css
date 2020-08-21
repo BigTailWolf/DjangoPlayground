@@ -1,0 +1,36 @@
+html {
+    background-color: cornsilk;
+}
+
+body {
+    max-width: 1200px; 
+	margin: 0 auto !important; 
+	float: none !important; 
+}
+
+#header {
+    display: flex;
+    align-content: space-between;
+}
+
+#container {
+    display: flex;
+    align-content: space-between;
+}
+
+h1 {
+    flex: 60%;
+}
+
+#nav_links {
+    flex-flow: column;
+    margin: 30px;
+}
+
+section {
+    margin: 100px;
+}
+
+form {
+    margin: 100px;
+}

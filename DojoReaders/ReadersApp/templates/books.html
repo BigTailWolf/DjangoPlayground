@@ -3,9 +3,45 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
     <title>Dojo Readers</title>
 </head>
 <body>
-    
+    <div id='header'>
+        <H1>Welcome! {{ user.name }}</H1>
+        <div id='nav_links'>
+            <a href='/books/add'>Add Book and Review</a>
+            <a href='/logout'>Logout</a>
+        </div>
+    </div>
+    <div id='container'>
+        <section>
+            <h2>Recent Book Reviews</h2>
+            {% for review in recent_reviews %}
+                <a href='/books/{{ review.book.id }}'><h3>{{ review.book.title }}</h3></a>
+                <label>Rating: </label>
+                {% if review.rate == 5 %}
+                    &#x2B50; &#x2B50; &#x2B50; &#x2B50; &#x2B50;
+                {% elif review.rate == 4 %}
+                    &#x2B50; &#x2B50; &#x2B50; &#x2B50; &#x2730;
+                {% elif review.rate == 3 %}
+                    &#x2B50; &#x2B50; &#x2B50; &#x2730; &#x2730;
+                {% elif review.rate == 2 %}
+                    &#x2B50; &#x2B50; &#x2730; &#x2730; &#x2730;
+                {% else %}
+                    &#x2B50; &#x2730; &#x2730; &#x2730; &#x2730;
+                {% endif %}
+                <p><a href='/users/{{ review.user.id }}'>{{ review.user.name }}</a> says: {{ review.desc }}</p>
+                <p>Posted on: {{ review.created_at }}</p>
+            {% endfor %}
+        </section>
+        <section>
+            <h2>Other Book with Reviews</h2>
+            {% for book in all_books %}
+                <p><a href='/books/{{ book.id }}'>{{ book.title }}</a></p>
+            {% endfor %}
+        </section>
+    </div>
 </body>
 </html>

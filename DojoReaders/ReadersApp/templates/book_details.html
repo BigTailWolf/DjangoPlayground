@@ -3,9 +3,61 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
     <title>Dojo Readers</title>
 </head>
 <body>
-    
+    <div id='header'>
+        <H1></H1>
+        <div id='nav_links'>
+            <a href='/books'>Home</a>
+            <a href='/logout'>Logout</a>
+        </div>
+    </div>
+    <div id='container'>
+        <section>
+            <H2>{{ book.title }}</H2>
+            <p>Author: {{ book.author.name }}</p>
+            <H2>Reviews: </H2>
+            {% for review in book.reviews.all %}
+                <label>Rating: </label>
+                {% if review.rate == 5 %}
+                    &#x2B50; &#x2B50; &#x2B50; &#x2B50; &#x2B50;
+                {% elif review.rate == 4 %}
+                    &#x2B50; &#x2B50; &#x2B50; &#x2B50; &#x2730;
+                {% elif review.rate == 3 %}
+                    &#x2B50; &#x2B50; &#x2B50; &#x2730; &#x2730;
+                {% elif review.rate == 2 %}
+                    &#x2B50; &#x2B50; &#x2730; &#x2730; &#x2730;
+                {% else %}
+                    &#x2B50; &#x2730; &#x2730; &#x2730; &#x2730;
+                {% endif %}
+                <p><a href='/users/{{ review.user.id }}'>{{ review.user.name }}</a> says: {{ review.desc }}</p>
+                <p>Posted on {{ review.created_at }}</p>
+                {% if review.user.id == request.session.user_id %}
+                    <p><a href='/reviews/{{ review.id }}/delete'>Delete this Review</a></p>
+                {% endif %}
+            {% endfor %}
+        </section>
+        <form action='/reviews/add' method='post'>
+            {% csrf_token %}
+            <h3>Add a Review</h3>
+            <input type='hidden' name='book_id' value={{ book.id }}>
+            <textarea name='user_review'></textarea></br>
+
+            <label>Rating: </label>
+            <input type='number' name='rating' min=1 max=5 value=3>
+            <label> starts.</label><br>
+            {% if messages %}
+            <ul class="messages">    
+                {% for message in messages %}    
+                <li {% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>    
+                {% endfor %}
+            </ul>
+            {% endif %}
+            <input type='submit' value='Submit Review'>
+        </form>
+    </div>
 </body>
 </html>

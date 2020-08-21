@@ -3,9 +3,61 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <title>Dojo Readers</title>
     <title>Dojo Readers</title>
 </head>
 <body>
-    
+    <div id='header'>
+        <H1></H1>
+        <div id='nav_links'>
+            <a href='/books'>Home</a>
+            <a href='/logout'>Logout</a>
+        </div>
+    </div>
+    <div id='container'>
+        <div>
+            <h2>Add a new book tile and review</h2>
+            <form action='/books/add' method='post'>
+                {% csrf_token %}
+                <label>Book Title</label>
+                <input type='text' name='book_title'>
+
+                <h3>Author</h3>
+                <table>
+                    <tr>
+                        <td>Choose from the list</td>
+                        <td>
+                            <select name='author_selection'>
+                                <option value=0>---- SELECT AUTHOR ----</option>
+                                {% for author in all_authors %}
+                                    <option value={{ author.id }}>{{author.name}}</option>
+                                {% endfor %}
+                            </select>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Or add a new author</td>
+                        <td><input type='text' name='author_name'></td>
+                    </tr>
+                </table>
+                <h3>Reivew</h3>
+                <textarea name='user_review'></textarea></br>
+
+                <label>Rating: </label>
+                <input type='number' name='rating' min=1 max=5 value=3>
+                <label> starts.</label><br>
+                {% if messages %}
+                <ul class="messages">    
+                    {% for message in messages %}    
+                    <li {% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>    
+                    {% endfor %}
+                </ul>
+                {% endif %}
+                <input type='submit' value='Add Book and Review'>
+            </form>
+        </div>
+    </div>
 </body>
 </html>
