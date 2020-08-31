@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'style.css' %}">
+    <link rel="icon" href="{% static 'logo.jpg' %}">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="{% static 'script.js' %}"></script>
+    <title>Rock Paper Scissors</title>
+</head>
+<body>
+    <img id="title" src="{% static 'rps-logo.png' %}">
+    <table>
+        <tr>
+            <td><b>Win<div id="win_score">0</div></b></td>
+            <td><b>Tie<div id="tie_score">0</div></b></td>
+            <td><b>Loss<div id="loss_score">0</div></b></td>
+        </tr>
+        <tr>
+            <td></td>
+            <td><img id="ai" style="width:75%" src="{% static 'rock-paper-scissors.png' %}"></td>
+            <td></td>
+        </tr>
+        <tr>
+            <td></td>
+            <td id="result"><h2>Go!</h2></td>
+            <td></td>
+        </tr>
+        <tr>
+            <td><img id="rock" style="width:75%" src="{% static 'rock.png' %}"></td>
+            <td><img id="paper" style="width:75%" src="{% static 'paper.png' %}"></td>
+            <td><img id="scissors" style="width:75%" src="{% static 'scissors.png' %}"></td>
+        </tr>
+    </table>
+
+    <form action='/end' method='post'>
+        {% csrf_token %}
+        <p>Enter a player name to save a record</p>
+        <input name='user_name'><br><br>
+        <button><b>Game Over</b></button>
+    </form>
+    <a href='#'>View records</a>
+    <br>
+    <br>
+    <a href='/reset'><button><b>Reset</b></button></a>
+</body>
+</html>
