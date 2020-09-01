@@ -21,7 +21,7 @@ function process() {
             if (data.result == 'loss') {
                 console.log('Process Loss')
                 $('#loss_score').text(data.loss);
-                $('#result').html('<h2>WIN</h2>');
+                $('#result').html('<h2>LOSS</h2>');
                 $('#result').css('background-color', 'red')
             }
         })
