@@ -34,4 +34,14 @@ $(document).ready(function(){
     $('#rock').click(process);
     $('#paper').click(process);
     $('#scissors').click(process);
+
+    var modal = document.getElementById("myModal");
+
+    $('#view_records').click(function() {
+        modal.style.display = "block";
+    });
+
+    $('.close').click(function() {
+        modal.style.display = "none";
+    });
 });
